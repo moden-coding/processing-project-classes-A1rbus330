@@ -5,6 +5,8 @@ public class Player{
     PImage image;
     int x;
     int y;
+    boolean left;
+    boolean right;
     public Player(int h, int xpos){
         health = h;
         x = xpos;
