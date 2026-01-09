@@ -1,12 +1,12 @@
 import processing.core.*;
 
 public class Player{
-    int health;
-    PImage image;
-    int x;
-    int y;
-    boolean left;
-    boolean right;
+    private int health;
+    private PImage image;
+    private int x;
+    private int y;
+    private boolean left;
+    private boolean right;
     public Player(int h, int xpos){
         health = h;
         x = xpos;
@@ -19,9 +19,23 @@ public class Player{
         return y;
     }
     public void moveLeft(){
-        x--;
+        left = true;
     }
     public void moveRight(){
-        x++;
+        right = true;
+    }
+    public void stopLeft(){
+        left = false;
+    }
+    public void stopRight(){
+        right = false;
+    }
+    public void move(){
+        if (right == true){
+            x+= 3;
+        }
+        if (left == true){
+            x-=3;
+        }
     }
 }

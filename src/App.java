@@ -20,47 +20,42 @@ public class App extends PApplet {
     }
 
     public void draw() {
-        if (hero.left == true) {
-            hero.x -= 3;
-        }
-        if (hero.right == true) {
-            hero.x += 3;
-        }
+        hero.move();
         background(29, 162, 216);
         for (Bullet b : bullets) { // chatgpt fixed this
-            if ((b.up)) {
-                b.moveUpScreen();
-                circle(b.x, b.y, 10);
-            }
-            for (int i = Integer.valueOf(b.y); i < 0; i--){
-
-        }
+            b.display();
+            b.startMoving();
+            b.moveUpScreen();
         }
         image(image, hero.getX(), hero.getY());
     }
 
     public void keyPressed() {
         if (keyCode == LEFT) {
-            hero.left = true;
+            hero.moveLeft();
+            if (hero.getX() < width - image.width) { // chatgpt suggestion
+                hero.stopLeft();
+            }
 
         }
         if (keyCode == RIGHT) {
-            hero.right = true;
+            hero.moveRight();
+            if (hero.getX() > width - image.width) { // chatgpt suggestion
+                hero.stopRight();
+            }
         }
         if (keyCode == ' ') {
-            Bullet bullet = new Bullet(hero.x, hero.y);
+            Bullet bullet = new Bullet(this, hero.getX() + 24, hero.getY());
             bullets.add(bullet);
-            circle((bullet.x + 25), bullet.y, 10);
-            bullet.up = true;
         }
     }
 
     public void keyReleased() {
         if (keyCode == LEFT) {
-            hero.left = false;
+            hero.stopLeft();
         }
         if (keyCode == RIGHT) {
-            hero.right = false;
+            hero.stopRight();
         }
     }
 }
