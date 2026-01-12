@@ -38,4 +38,14 @@ public class Player{
             x-=3;
         }
     }
+    public void isTouchingLeft(){
+        if (x - 24 < 0){
+            x = 0;
+        }
+    }
+    public void isTouchingRight(){
+        if (x + 24 > 500){
+            x = 500;
+        }
+    }
 }

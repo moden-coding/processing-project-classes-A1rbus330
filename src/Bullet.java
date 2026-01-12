@@ -1,6 +1,7 @@
 import processing.core.*;
 
 public class Bullet {
+    private PImage image;
     private PApplet canvas;
     private Player hero;
     private float x;
@@ -10,6 +11,9 @@ public class Bullet {
         canvas = c;
         x = xpos + 25;
         y = ypos;
+        image = canvas.loadImage("bullet.png");
+        image.resize(8, 8);
+
     }
     public void startMoving(){
         up = true;
@@ -20,7 +24,12 @@ public class Bullet {
         }
     }
     public void display(){
-        canvas.circle(x, y, 10);
+        canvas.image(image, x - 4, y);
+    }
+    public boolean destroy(){
+        if (x ==0){
+            return true;
+        }
     }
 
 }
