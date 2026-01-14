@@ -26,9 +26,18 @@ public class Bullet {
     public void display(){
         canvas.image(image, x - 4, y);
     }
+    public float getX(){
+        return x;
+    }
+    public float getY(){
+        return y;
+    }
     public boolean destroy(){
-        if (x ==0){
+        if (y ==0){
             return true;
+        }
+        else{
+            return false;
         }
     }
 

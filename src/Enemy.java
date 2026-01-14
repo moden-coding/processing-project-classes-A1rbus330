@@ -1,9 +1,16 @@
+import processing.core.PApplet;
+import processing.core.PImage;
+
 public class Enemy {
     private float x;
     private float y;
-    public Enemy(float xPos){
+    private PApplet canvas;
+    private PImage image;
+    public Enemy(PApplet c, float xPos){
+        canvas = c; //chatgpt
         x = xPos;
         y = 0;
+        image = canvas.loadImage("sukhoi.png");
     }
     public float getX(){
         return x;
@@ -12,6 +19,9 @@ public class Enemy {
         return y;
     }
     public void moveDownScreen(){
-        y++;
+        y+=5;
+    }
+    public void display(){
+        canvas.image(image, x, y);
     }
 }

@@ -6,6 +6,7 @@ public class App extends PApplet {
     Player hero = new Player(100, 0);
     PImage image;
     PImage bullet;
+    PImage badGuy;
     ArrayList<Bullet> bullets = new ArrayList<>();
     ArrayList<Enemy> enemies = new ArrayList<>();
     int score;
@@ -15,7 +16,9 @@ public class App extends PApplet {
     }
 
     public void setup() {
-        image = loadImage("player.png"); 
+        badGuy = loadImage("sukhoi.png");
+        image = loadImage("player.png");
+
     }
 
     public void settings() {
@@ -23,17 +26,31 @@ public class App extends PApplet {
     }
 
     public void draw() {
-        Enemy enemy = new Enemy(random(450));
-        enemies.add(enemy);
-        enemy.moveDownScreen();
-        circle(enemy.getX(), enemy.getY(), 50);
         hero.move();
-        background(29, 162, 216);
-        for (Bullet b : bullets) { // chatgpt fixed this
+        background(29, 162, 216); // chatgpt told me to put background before i make the enemy.
+        for (int i = 0; i < bullets.size(); i++) {
+            Bullet b = bullets.get(i);
             b.display();
             b.startMoving();
             b.moveUpScreen();
-            if
+            b.destroy();
+            for (int x = 0; i < enemies.size(); i++){
+                Enemy e = enemies.get(i);
+            if (collision(b.getX(), b.getY(), e.getX(), e.getY()))
+                System.out.println("collided");
+                    bullets.remove(b);
+            }
+
+        }
+        if (frameCount % 90 == 0) {
+            Enemy enemy = new Enemy(this, random(450));
+            enemies.add(enemy);
+        }
+
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy e = enemies.get(i); // chatgpt helped me get my enemy to move down the screen
+            e.display();
+            e.moveDownScreen();
         }
         image(image, hero.getX(), hero.getY());
         fill(255);
@@ -43,12 +60,10 @@ public class App extends PApplet {
     public void keyPressed() {
         if (keyCode == LEFT) {
             hero.moveLeft();
-            hero.isTouchingLeft();
 
         }
         if (keyCode == RIGHT) {
             hero.moveRight();
-            hero.isTouchingRight();
         }
         if (keyCode == ' ') {
             Bullet bullet = new Bullet(this, hero.getX() + 24, hero.getY());
@@ -63,5 +78,14 @@ public class App extends PApplet {
         if (keyCode == RIGHT) {
             hero.stopRight();
         }
+    }
+
+    public boolean collision(float w, float x, float y, float z) {
+        if (dist(w, x, y, z) < (50 / 2 + 50 / 2)) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }
