@@ -15,24 +15,24 @@ public class Bullet {
         image.resize(8, 8);
 
     }
-    public void startMoving(){
+    public void startMoving(){ // starts moving
         up = true;
     }
-    public void moveUpScreen(){
+    public void moveUpScreen(){ // moves it up the screen
         if (up == true){
         y-=5;
         }
     }
-    public void display(){
+    public void display(){ // displays it on the screen
         canvas.image(image, x - 4, y);
     }
-    public float getX(){
+    public float getX(){ // returns the x value
         return x;
     }
-    public float getY(){
+    public float getY(){ // returns the y value
         return y;
     }
-    public boolean destroy(){
+    public boolean destroy(){ // gets rid of the bullets when not needed
         if (y ==0){
             return true;
         }
