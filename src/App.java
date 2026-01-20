@@ -99,6 +99,11 @@ public class App extends PApplet {
     }
         image(image, hero.getX(), hero.getY()); // displays player (would have made a display method for the player, but even when I did the exact same thing as the others, the window wouldnt even open.)
         addspeed(); // adds how often enemies come
+        for (Enemy e: enemies){
+            if (e.getY() == 950){
+                    score-=3; // takes away pts everytime it passes you
+                }
+        }
 }
         if (scene == 2){  // display end screen
         background(255);
@@ -164,8 +169,8 @@ public class App extends PApplet {
         } else {
             return false;
         }
-
     }
+
     public void addspeed(){ // adds score as score increases, but stops at a point where it cant get harder.
         // did this not in a loop because I wanted it to add not the same amount each time, or a proportional amount.
         if (score >= 10 && score  <= 15){
